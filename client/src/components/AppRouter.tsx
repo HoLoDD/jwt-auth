@@ -11,11 +11,14 @@ const AppRouter = () => {
     if (localStorage.getItem('token')) {
       store.checkAuth();
     }
-  }, [store]);
+  }, []);
 
   if (store.isLoading) {
     return <Loader />;
   }
+
+  console.log(store.isAuth);
+  
 
   return (
     store.isAuth ?
