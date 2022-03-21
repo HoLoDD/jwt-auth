@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
-import UserPage from './pages/user-page';
+import AppRouter from './components/AppRouter';
 
 const App: FC = () => {
-
+  
   return (
-    <UserPage />
+    <div>
+      <AppRouter />
+    </div>
   );
 };
 
