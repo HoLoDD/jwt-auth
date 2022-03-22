@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Context } from '../index';
 import { privateRoutes, publicRoutes } from '../routes';
 import Loader from './loader';
@@ -11,7 +11,7 @@ const AppRouter = () => {
     if (localStorage.getItem('token')) {
       store.checkAuth();
     }
-  }, []);
+  }, [store]);
 
   if (store.isLoading) {
     return <Loader />;
@@ -21,17 +21,21 @@ const AppRouter = () => {
   
 
   return (
-    store.isAuth ?
     <Routes>
-      {privateRoutes.map(({ element: Element, ...props }) => (
+    { store.isAuth 
+    
+    ? privateRoutes.map(({ element: Element, ...props }) => (
         <Route element={<Element />} {...props} />
-      ))}
-    </Routes>
-    :
-    <Routes>
-      {publicRoutes.map(({ element: Element, ...props }) => (
+      ))
+    
+    : publicRoutes.map(({ element: Element, ...props }) => (
         <Route element={<Element />} {...props} />
-      ))}
+      ))
+    }
+      <Route
+        path="*"
+        element={<Navigate to="/login" replace />}
+    />
     </Routes>
   );
 };

@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC, useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Context } from '../../index';
 import style from './loginForm.module.css';
 
@@ -24,16 +25,18 @@ const LoginForm: FC = () => {
           placeholder='Password'
         />
         <div className={style.btns}>
-          <button 
+          <Link 
+            to={'/user'}
             className={style.btn}
             onClick={() => store.login(email, password)}>
             Login
-          </button>
-          <button 
+          </Link>
+          <Link 
+            to={'/user'}
             className={style.btn}
             onClick={() => store.registration(email, password)}>
             Sing Up
-          </button>
+          </Link>
         </div>
       </div>
     </div>
