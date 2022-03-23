@@ -1,13 +1,20 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Context } from '../../index';
+import { USER_ROUTE } from '../../utils/consts';
+import Loader from '../loader';
 import style from './loginForm.module.css';
 
 const LoginForm: FC = () => {
+  const { store } = useContext(Context);
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { store } = useContext(Context);
+
+  if(store.isLoading) {
+    return <Loader />
+  }
 
   return (
     <div className={style.form}>
@@ -25,18 +32,14 @@ const LoginForm: FC = () => {
           placeholder='Password'
         />
         <div className={style.btns}>
-          <Link 
-            to={'/user'}
+          <button
             className={style.btn}
-            onClick={() => store.login(email, password)}>
+            onClick={async () => {
+              await store.login(email, password);
+              navigate(USER_ROUTE, {replace: true})
+              }}>
             Login
-          </Link>
-          <Link 
-            to={'/user'}
-            className={style.btn}
-            onClick={() => store.registration(email, password)}>
-            Sing Up
-          </Link>
+          </button>
         </div>
       </div>
     </div>

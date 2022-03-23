@@ -1,9 +1,13 @@
 import React, { FC } from "react";
-import LoginForm from "../components/login-form/loginForm";
+import NavBar from '../components/nav-bar/nav-bar';
+import RegForm from '../components/reg-form/reg-form';
 
 const RegistrationPage: FC = () => {
     return (
-        <LoginForm />
+      <div>
+      <NavBar />
+      <RegForm />
+    </div>
     )
 }
 

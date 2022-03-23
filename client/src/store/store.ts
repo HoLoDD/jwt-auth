@@ -29,11 +29,11 @@ export default class Store {
     async login(email: string, password: string) {
         try {
             const response = await AuthService.login(email, password);
-            console.log(response);
             
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
+            
         } catch (error: any) {
             console.log(error.response?.data?.message); 
         }
@@ -52,7 +52,7 @@ export default class Store {
 
     async logout() {
         try {
-            const response = await AuthService.logout();
+            await AuthService.logout();
             localStorage.removeItem('token');
             this.setAuth(false);
             this.setUser({} as IUser);
